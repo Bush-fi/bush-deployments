@@ -1,0 +1,83 @@
+name: CI
+
+env:
+  CI: true
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: ['*', '**/*']
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up environment
+        uses: ./.github/actions/setup
+      - name: Lint
+        run: yarn lint
+
+  deployments-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate deployments.json
+        run: python3 src/scripts/parse_readme.py
+
+      - name: Verify generated files are committed
+        run: |
+          git status --porcelain
+          git diff --exit-code -- docs/deployments.json docs/families.txt
+
+  test-fork:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.12
+      - name: Cache
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: yarn-v1-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        run: yarn --immutable
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Restore Forked Network Cache
+        # Hardhat caches node requests when working with forked networks (e.g. when querying contract code, storage,
+        # etc.) to save time in future runs. We cache this directory across runs.
+        # This cache action is special for a couple reasons, which originate from a) it not occupying much disk size,
+        # and b) the cache never being invalid (as past blockchain data is immutable). We therefore:
+        #  - save the cache even on action failure (which may be caused due to a timeout), even if this could result in
+        #    some wasted space. For this we use the always-upload-cache fork of the basic action.
+        #  - use a different key on every single run, causing for the cache to always be saved.
+        #  - use a wildcard as a restore key, which will cause all stored keys to match and the most recent one to be
+        #    selected.
+        id: cache-forked-network-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: 'src/helpers/.hardhat/cache/hardhat-network-fork/**'
+          key: hardhat-network-fork-${{ github.run_number }}-${{ github.run_attempt }}
+          restore-keys: |
+            hardhat-network-fork-
+      - name: Prepare Config
+        run: yarn ci:prepare-config
+        env:
+          ROBINHOOD_CHAIN_RPC_ENDPOINT: ${{ secrets.ROBINHOOD_CHAIN_RPC_ENDPOINT }}
+      - name: Test
+        run: yarn test --bail
+      - name: Save Forked Network Cache
+        # Always save; the key changes on every run, and the current one should be the most complete one.
+        id: cache-forked-network-save
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.cache-forked-network-restore.outputs.cache-primary-key }}
+          path: 'src/helpers/.hardhat/cache/hardhat-network-fork/**'

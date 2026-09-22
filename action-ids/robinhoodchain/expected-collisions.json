@@ -1,0 +1,296 @@
+{
+  "0xdf73d4f52a80c1d1be1ec4ae5e86b7a1600959bd25a1ce43d719161f363afc39": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "addLiquidityToBuffer(address,uint256,uint256,uint256,address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "addLiquidityToBuffer(address,uint256,uint256,uint256,address)",
+      "useAdaptor": false
+    }
+  ],
+  "0xa1822de4ec6128a8bb07df15733b814337ab93515f5fb6ec2fb6229c3d2961fd": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "collectAggregateFees(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "collectAggregateFees(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0xb64894cfdc3dd880bc4fdfcc01247078baebaca9040b6a323a3a7c6dc6e32bf6": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "disableQuery()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "disableQuery()",
+      "useAdaptor": false
+    }
+  ],
+  "0x275e19c239247cd4f1cb2ec8b491954f162cc43e128bd2f7dde25e8f284442f9": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "disableQueryPermanently()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "disableQueryPermanently()",
+      "useAdaptor": false
+    }
+  ],
+  "0x2441c759e1aceb7ba5d1a43164daf9e941881f86cdbceb0021d9f67fc682a6ae": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "disableRecoveryMode(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "disableRecoveryMode(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0x4f2716f821774b4df579d804bf7a5c290f167c13bc085e56c7c76296804480d2": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "enableQuery()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "enableQuery()",
+      "useAdaptor": false
+    }
+  ],
+  "0x9d2c7c0bd0811f649068510bb10880d2cf35c34f86e467085bec232108100abc": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "enableRecoveryMode(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "enableRecoveryMode(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0x619f5a90ce36331dd04afd5125bb5ddfc921a0a663b3c158cc6a352678e2d132": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "initializeBuffer(address,uint256,uint256,uint256,address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "initializeBuffer(address,uint256,uint256,uint256,address)",
+      "useAdaptor": false
+    }
+  ],
+  "0xeb4e64da2b9e5c9c7f87f2b86dfb70b1010dd82f78ecd1715e34eb0161f2e6a7": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "pausePool(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "pausePool(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0x7863d2b78abc07b102d59c0b067941a630587e6a84dc98c492802c01f2aab747": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "pauseVault()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "pauseVault()",
+      "useAdaptor": false
+    }
+  ],
+  "0x127b1339ea5e0802fd5aa28fe8af18c3dc43c32e84e41d3fb0eb3a16274a25a3": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "pauseVaultBuffers()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "pauseVaultBuffers()",
+      "useAdaptor": false
+    }
+  ],
+  "0x59acb93e6cedc28f7fb3703c5c82ad227d22ac50e123eecc6d18918dabee42b6": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "removeLiquidityFromBuffer(address,uint256,uint256,uint256)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "removeLiquidityFromBuffer(address,uint256,uint256,uint256)",
+      "useAdaptor": false
+    }
+  ],
+  "0xb174f24cb68f8ab05e33bff635c7046dc4120b4dfdfa8b342844458df31c096b": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "removeLiquidityFromBufferHook(address,uint256,uint256,uint256,address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "removeLiquidityFromBufferHook(address,uint256,uint256,uint256,address)",
+      "useAdaptor": false
+    }
+  ],
+  "0x9fb133259017a76032c3a3265cc91b375caaefb24a10ac0401b9121f1726768d": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "setAuthorizer(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "setAuthorizer(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0xa64e238a04f3bfc2ac44e359d4131066022bb34eebaa5b0d2e4189dd4a1e0f6a": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "setProtocolFeeController(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "setProtocolFeeController(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0x17bb91aec5e5d47ec11aebd2c09b3fbf5f142ebc2c99e8ab543bfc41b35907e5": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "setStaticSwapFeePercentage(address,uint256)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "setStaticSwapFeePercentage(address,uint256)",
+      "useAdaptor": false
+    }
+  ],
+  "0x7154fb59e3703bbc088a61b7c94be3884ec005a48700015ce1927291d75a4d1a": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "unpausePool(address)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "unpausePool(address)",
+      "useAdaptor": false
+    }
+  ],
+  "0xe7a0799649a7232bfb2cb85d563bec0a865d36d9497cbf97068d5513d7ff3b98": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "unpauseVault()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "unpauseVault()",
+      "useAdaptor": false
+    }
+  ],
+  "0xbc5ffe4dba5c0438bf0252f798f5a403670d4d7bcf3972b55d6eb76751ffa77e": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "unpauseVaultBuffers()",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "unpauseVaultBuffers()",
+      "useAdaptor": false
+    }
+  ],
+  "0xbcf8dae4d4b6611f4ce53ad93ecd692accca81eea60a8fdc45a8cafe730e5e87": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "updateAggregateSwapFeePercentage(address,uint256)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "updateAggregateSwapFeePercentage(address,uint256)",
+      "useAdaptor": false
+    }
+  ],
+  "0x3b6f3d35f0f100422f32fd95e8dff2d771b8b16929c8d4d55728e38e5a4291cc": [
+    {
+      "taskId": "20260730-v3-vault-factory",
+      "contractName": "VaultAdmin",
+      "signature": "updateAggregateYieldFeePercentage(address,uint256)",
+      "useAdaptor": false
+    },
+    {
+      "taskId": "20260730-v3-vault3",
+      "contractName": "VaultAdmin",
+      "signature": "updateAggregateYieldFeePercentage(address,uint256)",
+      "useAdaptor": false
+    }
+  ]
+}

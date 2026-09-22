@@ -1,0 +1,29 @@
+name: Timelock Authorizer
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: ['*', '**/*']
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  verify-timelock-authorizer-config:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        network: [robinhoodchain]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify ${{ matrix.network }} Timelock Authorizer Configuration
+        uses: ./.github/actions/verify-network-timelock-authorizer-config
+        env:
+          ROBINHOOD_CHAIN_RPC_ENDPOINT: ${{ secrets.ROBINHOOD_CHAIN_RPC_ENDPOINT }}
+        with:
+          network-name: ${{ matrix.network }}
+
+env:
+  CI: true

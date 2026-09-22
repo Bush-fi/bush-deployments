@@ -1,0 +1,86 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: ['*', '**/*']
+
+jobs:
+  check-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up environment
+        uses: ./.github/actions/setup
+      - name: Check Deployment Artifacts
+        run: yarn check-artifacts
+
+  check-deployments:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        network: [robinhoodchain]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check ${{ matrix.network }} deployment addresses
+        uses: ./.github/actions/check-network-deployments
+        env:
+          ROBINHOOD_CHAIN_RPC_ENDPOINT: ${{ secrets.ROBINHOOD_CHAIN_RPC_ENDPOINT }}
+        with:
+          network-name: ${{ matrix.network }}
+
+  check-action-ids:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        network: [robinhoodchain]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check ${{ matrix.network }} Action IDs
+        uses: ./.github/actions/check-network-action-ids
+        env:
+          ROBINHOOD_CHAIN_RPC_ENDPOINT: ${{ secrets.ROBINHOOD_CHAIN_RPC_ENDPOINT }}
+        with:
+          network-name: ${{ matrix.network }}
+
+  check-address-lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up environment
+        uses: ./.github/actions/setup
+      - name: Prepare Config
+        run: yarn ci:prepare-config
+      - name: Check Deployment Address Lookup File
+        run: yarn check-address-lookup
+
+  check-timelock-authorizer-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up environment
+        uses: ./.github/actions/setup
+      - name: Prepare Config
+        run: yarn ci:prepare-config
+      - name: Check Timelock Authorizer Configuration Files
+        run: yarn check-timelock-authorizer-config
+
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - name: Configure Chrome sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Install linkspector
+        run: npm install -g @umbrelladocs/linkspector
+      - name: Check links
+        run: linkspector check
+env:
+  CI: true
