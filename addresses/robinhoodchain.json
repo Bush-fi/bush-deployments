@@ -2,7 +2,7 @@
   "000000001-tokens": {
     "contracts": [
       {
-        "name": "BAL",
+        "name": "BUSH",
         "address": ""
       },
       {
@@ -11,7 +11,7 @@
       }
     ],
     "status": "ACTIVE",
-    "version": "v3"
+    "version": "bush"
   },
   "20260730-v3-bootstrap-authorizer": {
     "contracts": [
@@ -210,6 +210,30 @@
       {
         "name": "ProtocolFeeSweeper",
         "address": "0x78FdAe68130ad08bB44e28dDc97fc3eD865C335C"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20260827-v3-timelock-authorizer": {
+    "contracts": [
+      {
+        "name": "TimelockAuthorizer",
+        "address": "0x2eA342b2B0EA5519A0c4ee9Ea4AeC25D3223Ea8b"
+      },
+      {
+        "name": "TimelockExecutionHelper",
+        "address": "0xf5DE5f550614d233aB2489510C7aaFCeA5390d07"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20260922-v3-pool-factory-registry": {
+    "contracts": [
+      {
+        "name": "PoolFactoryRegistry",
+        "address": "0xC845190F8A2d583FCF84c730f3A27D72ECe3a64f"
       }
     ],
     "status": "ACTIVE",
