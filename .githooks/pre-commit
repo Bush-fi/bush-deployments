@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+echo "Running build-address-lookup..."
+yarn build-address-lookup
+
+if ! git diff --quiet -- addresses; then
+  echo "Address lookup table changed, staging updates..."
+  git add addresses
+fi

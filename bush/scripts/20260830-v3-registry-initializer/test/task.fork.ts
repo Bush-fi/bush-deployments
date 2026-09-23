@@ -7,14 +7,14 @@ import { ZERO_ADDRESS } from '@helpers/constants';
 import { describeForkTest, getForkedNetwork, impersonate, Task, TaskMode } from '@src';
 import { SignerWithAddress } from '@nomicfoundation/hardhat-ethers/signers';
 
-import { ContractType, RegistryInitializerDeployment } from '../input';
+import { ContractType, HookMode, RegistryInitializerDeployment } from '../input';
 import { TimelockAuthorizerDeployment } from '../../../tasks/20260827-v3-timelock-authorizer/input';
 
 // The public Robinhood Chain RPC is not archival, so the fork is taken from the current head rather than a fixed block.
 describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () {
   const TASK_NAME = '20260830-v3-registry-initializer';
   const AUTHORIZER_TASK_NAME = '20260827-v3-timelock-authorizer';
-  const REGISTRY_TASK_NAME = '20260802-v3-contract-registry';
+  const REGISTRY_TASK_NAME = '20260923-v3-contract-registry-v2';
 
   let task: Task;
   let input: RegistryInitializerDeployment;
@@ -44,7 +44,7 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
     await (vaultAsAdmin.connect(root) as Contract).setAuthorizer(authorizer.target.toString());
 
     // `20260827-v3-grant-permissions` grants these on the live registry; the fresh one needs its own grants.
-    for (const fn of ['registerBushContract', 'addOrUpdateBushContractAlias']) {
+    for (const fn of ['registerBushContract', 'registerPoolFactory', 'addOrUpdateBushContractAlias']) {
       const actionId = await registry.getActionId(registry.interface.getFunction(fn)!.selector);
       await (authorizer.connect(root) as Contract).grantPermission(actionId, root.address, registry.target.toString());
     }
@@ -78,6 +78,43 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
 
       expect(registeredAddress).to.be.eq(address);
       expect(isActive).to.be.true;
+    }
+  });
+
+  it('registers the pool factories with their metadata', async () => {
+    const factories = input.Registrations.filter(({ contractType }) => contractType === ContractType.POOL_FACTORY);
+    expect(factories).to.not.be.empty;
+
+    for (const { name, address, poolFactory } of factories) {
+      const info = await registry.getPoolFactoryInfo(address);
+
+      expect(info.isRegistered).to.be.true;
+      expect(info.isActive).to.be.true;
+      expect(info.name).to.be.eq(name);
+      expect(info.poolType).to.be.eq(poolFactory!.poolType);
+      expect(info.hookMode).to.be.eq(BigInt(poolFactory!.hookMode));
+      expect(info.hook).to.be.eq(poolFactory!.hook ?? ZERO_ADDRESS);
+
+      expect(await registry.isActivePoolFactoryOfType(poolFactory!.poolType, address)).to.be.true;
+    }
+
+    // Enumeration only covers factories that went through `registerPoolFactory`.
+    expect([...(await registry.getPoolFactories())]).to.have.members(factories.map(({ address }) => address));
+  });
+
+  it('looks up the pool factories by alias', async () => {
+    for (const { address, contractType, contractAlias } of input.Registrations) {
+      if (contractType !== ContractType.POOL_FACTORY || contractAlias === undefined) continue;
+
+      const [factory] = await registry.getPoolFactory(contractAlias);
+      expect(factory).to.be.eq(address);
+    }
+  });
+
+  it('gives the weighted and stable factories optional hooks', async () => {
+    for (const poolType of ['WEIGHTED', 'STABLE']) {
+      const [factory] = await registry.getPoolFactoriesByType(poolType, true);
+      expect((await registry.getPoolFactoryInfo(factory)).hookMode).to.be.eq(BigInt(HookMode.OPTIONAL));
     }
   });
 

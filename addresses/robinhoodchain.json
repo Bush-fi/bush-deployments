@@ -124,7 +124,7 @@
         "address": "0x68df25bf3888D81e3836CE52fbce06233B125e21"
       }
     ],
-    "status": "ACTIVE",
+    "status": "DEPRECATED",
     "version": "bush"
   },
   "20260802-v3-unbalanced-add-via-swap-router": {
@@ -229,11 +229,11 @@
     "status": "ACTIVE",
     "version": "bush"
   },
-  "20260922-v3-pool-factory-registry": {
+  "20260923-v3-contract-registry-v2": {
     "contracts": [
       {
-        "name": "PoolFactoryRegistry",
-        "address": "0xC845190F8A2d583FCF84c730f3A27D72ECe3a64f"
+        "name": "BushContractRegistry",
+        "address": "0xF4477f8571bcc307ba8547E1DBAcbC91f0bf2207"
       }
     ],
     "status": "ACTIVE",

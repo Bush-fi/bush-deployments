@@ -1,6 +1,6 @@
 import { Task, TaskMode } from '@src';
 
-export type PoolFactoryRegistryDeployment = {
+export type BushContractRegistryDeployment = {
   Vault: string;
 };
 

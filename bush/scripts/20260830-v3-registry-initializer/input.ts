@@ -10,6 +10,26 @@ export enum ContractType {
   ERC4626 = 4,
 }
 
+// Mirrors the `HookMode` enum in `IBushContractRegistry`: how the pools a factory deploys get their hook.
+export enum HookMode {
+  // Pools never have a hook.
+  NONE = 0,
+  // The pool creator passes a hook (or none) at creation time.
+  OPTIONAL = 1,
+  // Every pool gets the same hook, which is recorded alongside the factory.
+  SPECIFIC = 2,
+}
+
+// The extra metadata `registerPoolFactory` records for a pool factory. The registry cannot check it against the
+// factory, so it has to be right here.
+export type PoolFactoryMetadata = {
+  // Free-form and compared exactly (case-sensitive), so stick to upper case: 'WEIGHTED', 'STABLE', etc.
+  poolType: string;
+  hookMode: HookMode;
+  // Required for `SPECIFIC`, and must be left out otherwise.
+  hook?: string;
+};
+
 export type ContractRegistration = {
   // Only one type per address. A contract that is legitimately several things at once (e.g. a hook that is also a
   // router) is registered under its primary function.
@@ -21,6 +41,9 @@ export type ContractRegistration = {
   // Optional short name resolving to the same address. Aliases are what integrators look up, and are re-pointed at
   // the newest deployment as versions ship, so they are the part of the registry that changes.
   contractAlias?: string;
+  // Required for `POOL_FACTORY` entries, which the registry only accepts through `registerPoolFactory`, and must be
+  // left out for every other type.
+  poolFactory?: PoolFactoryMetadata;
 };
 
 export type RegistryInitializerDeployment = {
@@ -41,6 +64,15 @@ function register(
     address: new Task(taskId, TaskMode.READ_ONLY, network).output()[contract],
     contractAlias,
   };
+}
+
+function registerPoolFactory(
+  taskId: string,
+  contract: string,
+  poolFactory: PoolFactoryMetadata,
+  contractAlias?: string
+): ContractRegistration {
+  return { ...register(taskId, contract, ContractType.POOL_FACTORY, contractAlias), poolFactory };
 }
 
 const Registrations: ContractRegistration[] = [
@@ -72,9 +104,20 @@ const Registrations: ContractRegistration[] = [
   register('20260801-v3-buffer-router', 'BufferRouter', ContractType.ROUTER),
 
   // Pool factories. The aliases are the pool type rather than the factory name ('StablePool', not
-  // 'StablePoolFactory'), again matching upstream: they answer "what is the current stable pool factory?".
-  register('20260803-v3-weighted-pool', 'WeightedPoolFactory', ContractType.POOL_FACTORY, 'WeightedPool'),
-  register('20260803-v3-stable-pool', 'StablePoolFactory', ContractType.POOL_FACTORY, 'StablePool'),
+  // 'StablePoolFactory'), again matching upstream: they answer "what is the current stable pool factory?". Both take
+  // a `poolHooksContract` in `create`, so their hook mode is `OPTIONAL`, with no fixed hook.
+  registerPoolFactory(
+    '20260803-v3-weighted-pool',
+    'WeightedPoolFactory',
+    { poolType: 'WEIGHTED', hookMode: HookMode.OPTIONAL },
+    'WeightedPool'
+  ),
+  registerPoolFactory(
+    '20260803-v3-stable-pool',
+    'StablePoolFactory',
+    { poolType: 'STABLE', hookMode: HookMode.OPTIONAL },
+    'StablePool'
+  ),
 ];
 
 export default {
