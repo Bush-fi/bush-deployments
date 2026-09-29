@@ -1,10 +1,9 @@
-# 2026-01-15 - V3 Weighted pool (Version 2)
+# 2026-08-03 - V3 Weighted Pool
 
-Deployment of the `WeightedPoolFactory` for Bush V3, version 2.
+Deployment of the `WeightedPoolFactory` for Bush V3.
 Pools from this factory use weighted math, which is best suited for uncorrelated assets (full price range).
 
-This version contains stability improvements and a larger pause window.
-Allows setting pool creator on pool deployment.
+The factory has a 75-year pause window, and allows setting the pool creator on pool deployment. This is the first Bush deployment, but the factory and pool version metadata report `version: 2`, following the upstream design it is based on.
 
 ## Useful Files
 

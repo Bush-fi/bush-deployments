@@ -3,7 +3,7 @@
 Populates the [`BushContractRegistry`](../../tasks/20260923-v3-contract-registry-v2) with the deployed routers and pool
 factories, and points the short aliases at them.
 
-Unlike Balancer's [`20250411-balancer-registry-initializer-v2`](../../../v3/scripts/20250411-balancer-registry-initializer-v2),
+Unlike Balancer's upstream `20250411-balancer-registry-initializer-v2`,
 this deploys no contract: there is no `BushContractRegistryInitializer` artifact, and the admin already holds the
 registry permissions from [`20260827-v3-grant-permissions`](../20260827-v3-grant-permissions), so the script simply
 sends the calls itself. The tradeoff is that it is a transaction per entry rather than one atomic call, so a failure

@@ -1,8 +1,8 @@
-# 2025-02-14 - V3 Protocol Fee Controller (V2)
+# 2026-07-30 - V3 Protocol Fee Controller
 
-Redeployment of the Protocol Fee Controller. This version adds events on new pool registration, reporting the initial values of the aggregate swap and yield fees. Otherwise, it would be much harder to track protocol fee percentages for new pools (and actually impossible to know whether they were protocol fee exempt solely by tracking events).
+Deployment of the `ProtocolFeeController` for the Bush V3 Vault. It emits events on new pool registration, reporting the initial values of the aggregate swap and yield fees, so protocol fee percentages (and whether a pool is protocol fee exempt) can be tracked from events alone.
 
-There is nothing to deprecate, as the original Protocol Fee Controller was deployed as part of the Vault package. The fee controller is upgradeable in the Vault via a permissioned function.
+It is deployed with global protocol swap and yield fees of 50%. The fee controller is replaceable in the Vault through the permissioned `setProtocolFeeController` function.
 
 ## Useful Files
 

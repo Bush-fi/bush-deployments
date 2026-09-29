@@ -4,6 +4,8 @@ Deployment of the `LiquidityZapper`: buys a set of tokens through the Umbra aggr
 
 Constructor arguments are the `Vault`, `Router`, `Permit2` and the governance-set `UmbraRouter` every swap is sent to.
 
+This task was not deployed on Robinhood Chain. It was superseded by the [Multi-Router Liquidity Zapper](../20260928-v3-zapper-v2), which supports multiple aggregators.
+
 ## Useful Files
 
 - [`LiquidityZapper` artifact](./artifact/LiquidityZapper.json)

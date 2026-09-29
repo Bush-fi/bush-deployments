@@ -1,8 +1,8 @@
-# 2022-03-25 - Test Token
+# 2026-08-03 - Test Token
 
-Deployment of the `SimpleTestToken`, for replicating a canonical governance token's access control scheme on testnets
+Deployment of the `SimpleTestToken` (`TEST`, 18 decimals), a plain ERC20 used as a pool token in the mock pools deployed by the [Stable Pool](../20260803-v3-stable-pool) and [Weighted Pool](../20260803-v3-weighted-pool) tasks.
 
 ## Useful Files
-- [Robinhoodchain addresses](./output/robinhoodchain.json)
 
+- [Robinhoodchain addresses](./output/robinhoodchain.json)
 - [`SimpleTestToken` artifact](./artifact/SimpleTestToken.json)

@@ -1,10 +1,10 @@
-# 2025-03-21 - V3 VaultFactory V2
+# 2026-07-30 - V3 Vault Factory
 
-Redeployment of the VaultFactory for V3.
-The current VaultFactory deploys the ProtocolFeeController and passes it into the Vault. This introduces an unwanted coupling, since with this design we would need to redeploy the VaultFactory every time we migrated to a new version of the fee controller. This version removes the deployment and accepts the fee controller address in the `create` function, passing it through to the Vault. (This will also decrease the size of the VaultFactory contract and reduce the gas requirement deploy the Vault through the factory.)
+Deployment of the `VaultFactory`, which was used to deploy the Bush V3 Vault (with its `VaultExtension` and `VaultAdmin`) at the target address `0xB055000fbE3cc9bDE7742C583a86cc6283E3fF85`. The Vault creation code comes from the [`20260730-v3-vault3`](../20260730-v3-vault3) task, and the Vault is deployed pointing at the [`BootstrapAuthorizer`](../20260730-v3-bootstrap-authorizer).
+
+The factory does not deploy a `ProtocolFeeController`: it accepts the fee controller address in the `create` function and passes it through to the Vault. This keeps the factory decoupled from the fee controller version, and reduces the factory's size and the gas needed to deploy the Vault.
 
 ## Useful Files
 
 - [Robinhoodchain addresses](./output/robinhoodchain.json)
 - [`VaultFactory` artifact](./artifact/VaultFactory.json)
-

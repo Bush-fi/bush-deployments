@@ -1,10 +1,9 @@
-# 2026-01-16 - V3 Stable pool (V3)
+# 2026-08-03 - V3 Stable Pool
 
-Third deployment of the `StablePoolFactory` for Bush V3.
+Deployment of the `StablePoolFactory` for Bush V3.
 Pools from this factory use stable math, inspired by Curve stable pools, which is best suited for correlated assets.
 
-This version contains stability improvements and a larger pause window.
-Allows setting pool creator on pool deployment.
+The factory has a 75-year pause window, and allows setting the pool creator on pool deployment.
 
 ## Useful Files
 

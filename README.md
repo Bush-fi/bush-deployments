@@ -74,7 +74,6 @@ Returns an object with all contracts from a deployment and their addresses.
 | V3 Buffer Router                             | [`20260801-v3-buffer-router`](./bush/tasks/20260801-v3-buffer-router)                                   |
 | V3 Composite Liquidity Router                | [`20260801-v3-composite-liquidity-router-v2`](./bush/tasks/20260801-v3-composite-liquidity-router-v2)   |
 | V3 Router                                    | [`20260801-v3-router`](./bush/tasks/20260801-v3-router)                                                 |
-| V3 Contract Registry                         | [`20260802-v3-contract-registry`](./bush/tasks/20260802-v3-contract-registry)                           |
 | V3 Unbalanced Add via Swap Router            | [`20260802-v3-unbalanced-add-via-swap-router`](./bush/tasks/20260802-v3-unbalanced-add-via-swap-router) |
 | V3 Stable Pool                               | [`20260803-v3-stable-pool`](./bush/tasks/20260803-v3-stable-pool)                                       |
 | Test Token                                   | [`20260803-v3-test-token`](./bush/tasks/20260803-v3-test-token)                                         |
@@ -84,8 +83,8 @@ Returns an object with all contracts from a deployment and their addresses.
 | V3 Aggregator Router                         | [`20260815-v3-aggregator-router`](./bush/tasks/20260815-v3-aggregator-router)                           |
 | V3 Protocol Fee Sweeper                      | [`20260827-v3-protocol-fee-sweeper-v2`](./bush/tasks/20260827-v3-protocol-fee-sweeper-v2)               |
 | Timelock Authorizer, governance contract     | [`20260827-v3-timelock-authorizer`](./bush/tasks/20260827-v3-timelock-authorizer)                       |
-| V3 Liquidity Zapper (Umbra)                  | [`20260917-v3-zapper`](./bush/tasks/20260917-v3-zapper)                                                 |
-| V3 Pool Factory Registry                     | [`20260922-v3-pool-factory-registry`](./bush/tasks/20260922-v3-pool-factory-registry)                   |
+| V3 Contract Registry                         | [`20260923-v3-contract-registry-v2`](./bush/tasks/20260923-v3-contract-registry-v2)                     |
+| V3 Multi-Router Liquidity Zapper             | [`20260928-v3-zapper-v2`](./bush/tasks/20260928-v3-zapper-v2)                                           |
 
 ## Scripts
 
@@ -102,4 +101,7 @@ These deployments have been deprecated because they're either outdated and have 
 
 Go to each deprecated deployment's readme file to learn more about why it is deprecated, and what the replacement deployment is (if any).
 
-_No deployments have been deprecated yet._
+| Description                                  | Task ID                                                                                                 |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| V3 Contract Registry                         | [`20260802-v3-contract-registry`](./bush/deprecated/20260802-v3-contract-registry)                      |
+| V3 Liquidity Zapper (Umbra)                  | [`20260917-v3-zapper`](./bush/tasks/20260917-v3-zapper)                                                 |

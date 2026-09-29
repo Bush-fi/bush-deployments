@@ -229,11 +229,31 @@
     "status": "ACTIVE",
     "version": "bush"
   },
+  "20260917-v3-zapper": {
+    "contracts": [
+      {
+        "name": "LiquidityZapper",
+        "address": "0x64DC07E3555b59394564e595d378C37605884338"
+      }
+    ],
+    "status": "DEPRECATED",
+    "version": "bush"
+  },
   "20260923-v3-contract-registry-v2": {
     "contracts": [
       {
         "name": "BushContractRegistry",
         "address": "0xF4477f8571bcc307ba8547E1DBAcbC91f0bf2207"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20260928-v3-zapper-v2": {
+    "contracts": [
+      {
+        "name": "MultiRouterLiquidityZapper",
+        "address": "0x4E4810F0b43DDF1E083A05640951A7E2B737065d"
       }
     ],
     "status": "ACTIVE",

@@ -1,6 +1,6 @@
-# 2025-10-10 - V3 Unbalanced Add Via Swap Router
+# 2026-08-02 - V3 Unbalanced Add Via Swap Router
 
-This router is designed to allow adding liquidity unbalanced to pools that do not support it natively (e.g., ReCLAMMs). It uses Permit2, and does a proportional add followed by a calculated swap to achieve the desired token balances. This version can only be used with two-token pools.
+This router is designed to allow adding liquidity unbalanced to pools that do not support it natively (e.g., pools with unbalanced liquidity disabled). It uses Permit2, and does a proportional add followed by a calculated swap to achieve the desired token balances. This version can only be used with two-token pools.
 
 ## Useful Files
 

@@ -1,4 +1,4 @@
-# 2024-12-05 - V3 Buffer Router
+# 2026-08-01 - V3 Buffer Router
 
 Buffer Router deployment for V3.
 Contains `BufferRouter` to initialize and manage liquidity positions for buffers.
