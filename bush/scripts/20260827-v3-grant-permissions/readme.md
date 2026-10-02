@@ -6,7 +6,7 @@ This is a script rather than a deployment: it deploys nothing and saves no outpu
 
 ## Permissions
 
-37 grants, all to the admin except where noted. The `where` of a permission is the contract that *checks* it, which is not always the contract the function is declared on.
+42 grants, all to the admin except where noted. The `where` of a permission is the contract that *checks* it, which is not always the contract the function is declared on.
 
 ### Vault — granted on the Vault (`VaultAdmin` runs by delegate call, so `address(this)` is the Vault)
 
@@ -32,11 +32,17 @@ The admin is already the sweeper's `feeRecipient`, and `onlyFeeRecipientOrGovern
 
 ### BushContractRegistry — granted on the registry
 
-`registerBushContract(uint8,string,address)`, `deregisterBushContract(string)`, `deprecateBushContract(address)`, `addOrUpdateBushContractAlias(string,address)`
+`registerBushContract(uint8,string,address)`, `deregisterBushContract(string)`, `deprecateBushContract(address)`, `addOrUpdateBushContractAlias(string,address)`, `registerPoolFactory(string,address,string,uint8,address)`
+
+These are granted on the [V2 registry](../../tasks/20260923-v3-contract-registry-v2). Action IDs are disambiguated by the registry's address, so permissions on the [deprecated registry](../../deprecated/20260802-v3-contract-registry) do not carry over.
 
 ### TokenPairRegistry — granted on the registry
 
 `addPath(address,(address,address,bool)[])`, `addSimplePath(address)`, `removePathAtIndex(address,address,uint256)`, `removeSimplePath(address)`
+
+### MultiRouterLiquidityZapper — granted on the zapper
+
+`setSwapRouterAllowed(address,bool)`, `rescue(address,address,uint256)`
 
 ### Pool factories — granted on each factory
 
@@ -44,7 +50,7 @@ The admin is already the sweeper's `feeRecipient`, and `onlyFeeRecipientOrGovern
 
 ### Deliberately not granted
 
-Functions that are not gated by the Authorizer at all: the Vault's buffer entry points (`initializeBuffer`, `addLiquidityToBuffer`, `removeLiquidityFromBuffer`) are permissionless, `collectAggregateFees` and `updateAggregate*FeePercentage` are restricted to the fee controller, `TokenPairRegistry`'s ownership functions are `Ownable2Step`, and the factories' `create` is permissionless.
+Functions that are not gated by the Authorizer at all: the Vault's buffer entry points (`initializeBuffer`, `addLiquidityToBuffer`, `removeLiquidityFromBuffer`) are permissionless, `collectAggregateFees` and `updateAggregate*FeePercentage` are restricted to the fee controller, `TokenPairRegistry`'s ownership functions are `Ownable2Step`, the factories' `create` is permissionless, and so is the zapper's `zap`.
 
 ## Requirements
 

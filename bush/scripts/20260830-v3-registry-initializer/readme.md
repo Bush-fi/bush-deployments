@@ -32,6 +32,15 @@ partway through leaves the registry half-populated; re-running finishes the job.
   as versions ship. An address must be registered before it can be aliased, and names and aliases share a namespace:
   an alias cannot collide with a registered name, or vice versa.
 
+- `deprecated` marks a contract that has been superseded. It stays in the list as a record, and is deprecated with
+  `deprecateBushContract` once registered, if it is still active. Deprecation is permanent (the registry cannot
+  reactivate a contract), so the flag is only for contracts that are truly retired. A deprecated entry cannot have an
+  alias: the alias moves to its replacement, which is listed before it so the alias is re-pointed first. Deprecating
+  a factory in the registry does not `disable` the factory itself; that is a separate call on the factory.
+
+The `20260803-v3-weighted-pool` factory is deprecated in favour of `20261001-v3-weighted-pool`, which now holds the
+`WeightedPool` alias.
+
 The `BufferRouter` is registered with no alias, matching upstream - it is driven by the Vault's buffer machinery
 rather than looked up by name.
 

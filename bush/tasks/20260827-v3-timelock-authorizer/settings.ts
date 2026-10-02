@@ -22,8 +22,9 @@ const network = 'robinhoodchain';
 
 const Vault = new Task('20260730-v3-vault3', TaskMode.READ_ONLY, network);
 const ProtocolFeeController = new Task('20260730-v3-protocol-fee-controller', TaskMode.READ_ONLY, network);
-const BushContractRegistry = new Task('20260802-v3-contract-registry', TaskMode.READ_ONLY, network);
+const BushContractRegistry = new Task('20260923-v3-contract-registry-v2', TaskMode.READ_ONLY, network);
 const ProtocolFeeSweeper = new Task('20260827-v3-protocol-fee-sweeper-v2', TaskMode.READ_ONLY, network);
+const LiquidityZapper = new Task('20260928-v3-zapper-v2', TaskMode.READ_ONLY, network);
 
 // Happens frequently.
 const SHORT_DELAY = 0.5 * HOUR;
@@ -104,6 +105,23 @@ export const ProposedExecuteDelays: DelayData[] = [
   {
     actionId: BushContractRegistry.actionId('BushContractRegistry', 'registerBushContract(uint8,string,address)'),
     newDelay: SHORT_DELAY,
+  },
+  {
+    actionId: BushContractRegistry.actionId(
+      'BushContractRegistry',
+      'registerPoolFactory(string,address,string,uint8,address)'
+    ),
+    newDelay: SHORT_DELAY,
+  },
+
+  // The zapper routes user funds through allowlisted swap routers, and `rescue` moves tokens out of it, so medium delay.
+  {
+    actionId: LiquidityZapper.actionId('MultiRouterLiquidityZapper', 'setSwapRouterAllowed(address,bool)'),
+    newDelay: MEDIUM_DELAY,
+  },
+  {
+    actionId: LiquidityZapper.actionId('MultiRouterLiquidityZapper', 'rescue(address,address,uint256)'),
+    newDelay: MEDIUM_DELAY,
   },
 
   // Protocol fee sweeper changes are operational and might drain fees if done incorrectly, so medium delay.

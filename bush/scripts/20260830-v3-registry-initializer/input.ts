@@ -44,6 +44,10 @@ export type ContractRegistration = {
   // Required for `POOL_FACTORY` entries, which the registry only accepts through `registerPoolFactory`, and must be
   // left out for every other type.
   poolFactory?: PoolFactoryMetadata;
+  // Marks a contract that has been superseded. It stays in the list so the registry's history is recorded here, and
+  // is deprecated after registration if it is still active. Deprecation is permanent (the registry has no way to
+  // reactivate), and a deprecated contract cannot hold an alias: move the alias to its replacement instead.
+  deprecated?: boolean;
 };
 
 export type RegistryInitializerDeployment = {
@@ -105,13 +109,22 @@ const Registrations: ContractRegistration[] = [
 
   // Pool factories. The aliases are the pool type rather than the factory name ('StablePool', not
   // 'StablePoolFactory'), again matching upstream: they answer "what is the current stable pool factory?". Both take
-  // a `poolHooksContract` in `create`, so their hook mode is `OPTIONAL`, with no fixed hook.
+  // a `poolHooksContract` in `create`, so their hook mode is `OPTIONAL`, with no fixed hook. A replacement is listed
+  // before the factory it supersedes, so its alias is in place before the old one is deprecated.
   registerPoolFactory(
-    '20260803-v3-weighted-pool',
+    '20261001-v3-weighted-pool',
     'WeightedPoolFactory',
     { poolType: 'WEIGHTED', hookMode: HookMode.OPTIONAL },
     'WeightedPool'
   ),
+  {
+    // Superseded by `20261001-v3-weighted-pool`, which takes over the `WeightedPool` alias.
+    ...registerPoolFactory('20260803-v3-weighted-pool', 'WeightedPoolFactory', {
+      poolType: 'WEIGHTED',
+      hookMode: HookMode.OPTIONAL,
+    }),
+    deprecated: true,
+  },
   registerPoolFactory(
     '20260803-v3-stable-pool',
     'StablePoolFactory',

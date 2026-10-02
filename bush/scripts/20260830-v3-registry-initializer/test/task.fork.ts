@@ -44,7 +44,12 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
     await (vaultAsAdmin.connect(root) as Contract).setAuthorizer(authorizer.target.toString());
 
     // `20260827-v3-grant-permissions` grants these on the live registry; the fresh one needs its own grants.
-    for (const fn of ['registerBushContract', 'registerPoolFactory', 'addOrUpdateBushContractAlias']) {
+    for (const fn of [
+      'registerBushContract',
+      'registerPoolFactory',
+      'addOrUpdateBushContractAlias',
+      'deprecateBushContract',
+    ]) {
       const actionId = await registry.getActionId(registry.interface.getFunction(fn)!.selector);
       await (authorizer.connect(root) as Contract).grantPermission(actionId, root.address, registry.target.toString());
     }
@@ -63,21 +68,21 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
   });
 
   it('registers every contract with the right type', async () => {
-    for (const { address, contractType } of input.Registrations) {
+    for (const { address, contractType, deprecated } of input.Registrations) {
       const info = await registry.getBushContractInfo(address);
 
       expect(info.isRegistered).to.be.true;
-      expect(info.isActive).to.be.true;
+      expect(info.isActive).to.be.eq(!deprecated);
       expect(info.contractType).to.be.eq(BigInt(contractType));
     }
   });
 
   it('registers every contract under its task ID', async () => {
-    for (const { name, address, contractType } of input.Registrations) {
+    for (const { name, address, contractType, deprecated } of input.Registrations) {
       const [registeredAddress, isActive] = await registry.getBushContract(contractType, name);
 
       expect(registeredAddress).to.be.eq(address);
-      expect(isActive).to.be.true;
+      expect(isActive).to.be.eq(!deprecated);
     }
   });
 
@@ -85,17 +90,17 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
     const factories = input.Registrations.filter(({ contractType }) => contractType === ContractType.POOL_FACTORY);
     expect(factories).to.not.be.empty;
 
-    for (const { name, address, poolFactory } of factories) {
+    for (const { name, address, poolFactory, deprecated } of factories) {
       const info = await registry.getPoolFactoryInfo(address);
 
       expect(info.isRegistered).to.be.true;
-      expect(info.isActive).to.be.true;
+      expect(info.isActive).to.be.eq(!deprecated);
       expect(info.name).to.be.eq(name);
       expect(info.poolType).to.be.eq(poolFactory!.poolType);
       expect(info.hookMode).to.be.eq(BigInt(poolFactory!.hookMode));
       expect(info.hook).to.be.eq(poolFactory!.hook ?? ZERO_ADDRESS);
 
-      expect(await registry.isActivePoolFactoryOfType(poolFactory!.poolType, address)).to.be.true;
+      expect(await registry.isActivePoolFactoryOfType(poolFactory!.poolType, address)).to.be.eq(!deprecated);
     }
 
     // Enumeration only covers factories that went through `registerPoolFactory`.
@@ -109,6 +114,16 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
       const [factory] = await registry.getPoolFactory(contractAlias);
       expect(factory).to.be.eq(address);
     }
+  });
+
+  it('leaves only the newest weighted factory active, behind the alias', async () => {
+    const [aliased] = await registry.getPoolFactory('WeightedPool');
+    expect(aliased).to.be.eq(
+      new Task('20261001-v3-weighted-pool', TaskMode.READ_ONLY, 'robinhoodchain').output().WeightedPoolFactory
+    );
+
+    expect([...(await registry.getPoolFactoriesByType('WEIGHTED', true))]).to.deep.eq([aliased]);
+    expect(await registry.getPoolFactoriesByType('WEIGHTED', false)).to.have.lengthOf(2);
   });
 
   it('gives the weighted and stable factories optional hooks', async () => {

@@ -23,11 +23,12 @@ const EVERYWHERE = '0xffffffffffffffffffffffffffffffffffffffff';
 
 const VaultTask = new Task('20260730-v3-vault3', TaskMode.READ_ONLY, network);
 const ProtocolFeeControllerTask = new Task('20260730-v3-protocol-fee-controller', TaskMode.READ_ONLY, network);
-const BushContractRegistryTask = new Task('20260802-v3-contract-registry', TaskMode.READ_ONLY, network);
+const BushContractRegistryTask = new Task('20260923-v3-contract-registry-v2', TaskMode.READ_ONLY, network);
 const TokenPairRegistryTask = new Task('20260803-v3-token-pair-registry', TaskMode.READ_ONLY, network);
 const ProtocolFeeSweeperTask = new Task('20260827-v3-protocol-fee-sweeper-v2', TaskMode.READ_ONLY, network);
 const StablePoolTask = new Task('20260803-v3-stable-pool', TaskMode.READ_ONLY, network);
 const WeightedPoolTask = new Task('20260803-v3-weighted-pool', TaskMode.READ_ONLY, network);
+const LiquidityZapperTask = new Task('20260928-v3-zapper-v2', TaskMode.READ_ONLY, network);
 
 // VaultAdmin and VaultExtension run as delegate calls from the Vault, so `address(this)` - and therefore the `where`
 // of every permission they check - is the Vault itself, not the VaultAdmin deployment.
@@ -38,6 +39,7 @@ const TokenPairRegistry = TokenPairRegistryTask.output().TokenPairRegistry;
 const ProtocolFeeSweeper = ProtocolFeeSweeperTask.output().ProtocolFeeSweeper;
 const StablePoolFactory = StablePoolTask.output().StablePoolFactory;
 const WeightedPoolFactory = WeightedPoolTask.output().WeightedPoolFactory;
+const LiquidityZapper = LiquidityZapperTask.output().MultiRouterLiquidityZapper;
 
 // Root of the TimelockAuthorizer, and the fee recipient of the ProtocolFeeSweeper.
 const Admin = '0xAfb63FBd653A55f180a84076673f4abF9E68232c';
@@ -147,9 +149,20 @@ const Permissions: PermissionData[] = [
       'deregisterBushContract(string)',
       'deprecateBushContract(address)',
       'addOrUpdateBushContractAlias(string,address)',
+      'registerPoolFactory(string,address,string,uint8,address)',
     ],
     Admin,
     BushContractRegistry,
+    'Admin'
+  ),
+
+  // Liquidity zapper. `zap` is permissionless; only the swap router allowlist and token rescue are gated.
+  ...grant(
+    LiquidityZapperTask,
+    'MultiRouterLiquidityZapper',
+    ['setSwapRouterAllowed(address,bool)', 'rescue(address,address,uint256)'],
+    Admin,
+    LiquidityZapper,
     'Admin'
   ),
 

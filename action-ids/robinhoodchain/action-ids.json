@@ -224,5 +224,27 @@
         "sweepProtocolFeesForWrappedToken(address,address,uint256,uint256,address)": "0xe20eaee844d249d3d04b282d5a8f49716762992f20f4d3c1379492fabf05ac68"
       }
     }
+  },
+  "20260923-v3-contract-registry-v2": {
+    "BushContractRegistry": {
+      "useAdaptor": false,
+      "actionIds": {
+        "addOrUpdateBushContractAlias(string,address)": "0xa4ac0baa5db4bb13c1b64bd081fa0166d257a90b44f313215e18a61c57bbaabf",
+        "deprecateBushContract(address)": "0xb897a1dfc6b4507dbe1e74dbdbc62ddde40191797f82f2c98925a1168a2c1122",
+        "deregisterBushContract(string)": "0xf9d65b0b36141b8f03742184f89e2ecb643af7e6191bd54597b2f60e203fbead",
+        "registerBushContract(uint8,string,address)": "0xce324fe34ecf25558542e7ece8062a2071604d9d4a37a4d68288eef610720a71",
+        "registerPoolFactory(string,address,string,uint8,address)": "0x6c32ea90bc1b4ee7d3503f9004f5fd5178673cd177e47ae003537d4891ab8e83"
+      }
+    }
+  },
+  "20260928-v3-zapper-v2": {
+    "MultiRouterLiquidityZapper": {
+      "useAdaptor": false,
+      "actionIds": {
+        "rescue(address,address,uint256)": "0x55b2efa77015acb877dc4b30450c39c6ee54aa77c333c3aef43017d0bc8fcc21",
+        "setSwapRouterAllowed(address,bool)": "0x01f26cc69aa0796b98d309478db0bcd4b5a89804deddd6fc491366d4d4d314a6",
+        "zap((address,(address,bytes,uint256,uint256,address)[],address,(address,string,string,(address,uint8,address,bool)[],uint256[],(address,address,address),uint256,address,bool,bool,bytes32),uint256,address,uint256))": "0x28a8e1b8094e11e0192f8f51d74f9ba12f551eaac3bdc8866c3e3ea8a0a1f1f9"
+      }
+    }
   }
 }

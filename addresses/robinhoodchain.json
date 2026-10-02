@@ -182,7 +182,7 @@
         "address": "0x83B90a0753985D32FD420A2faa3E3B1137D2AaD5"
       }
     ],
-    "status": "ACTIVE",
+    "status": "DEPRECATED",
     "version": "bush"
   },
   "20260815-v3-aggregator-batch-router": {
@@ -254,6 +254,20 @@
       {
         "name": "MultiRouterLiquidityZapper",
         "address": "0x4E4810F0b43DDF1E083A05640951A7E2B737065d"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20261001-v3-weighted-pool": {
+    "contracts": [
+      {
+        "name": "WeightedPoolFactory",
+        "address": "0x8c873AC5028C9b30b6a32Cf222fcfB24444da5Db"
+      },
+      {
+        "name": "MockWeightedPool",
+        "address": "0x6a075E873048a86ab03B106985c11C9ff5772ef2"
       }
     ],
     "status": "ACTIVE",

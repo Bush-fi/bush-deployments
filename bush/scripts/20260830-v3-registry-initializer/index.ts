@@ -51,6 +51,9 @@ export default async (task: Task, { from }: TaskRunOptions = {}): Promise<void> 
   if (input.Registrations.some((registration) => registration.contractAlias !== undefined)) {
     requiredActions.push('addOrUpdateBushContractAlias(string,address)');
   }
+  if (input.Registrations.some((registration) => registration.deprecated)) {
+    requiredActions.push('deprecateBushContract(address)');
+  }
 
   for (const signature of requiredActions) {
     // Action IDs are disambiguated by the contract's own address, so they're read from the registry itself rather
@@ -64,7 +67,7 @@ export default async (task: Task, { from }: TaskRunOptions = {}): Promise<void> 
     }
   }
 
-  for (const { contractType, name, address, contractAlias, poolFactory } of input.Registrations) {
+  for (const { contractType, name, address, contractAlias, poolFactory, deprecated } of input.Registrations) {
     // `registerBushContract` reverts on an address that is already registered, so a re-run has to skip it rather
     // than retry. `isRegistered` stays true for deprecated contracts, which is what we want: re-registering one
     // would revert too.
@@ -112,6 +115,18 @@ export default async (task: Task, { from }: TaskRunOptions = {}): Promise<void> 
       logger.success(`Registered: ${name} at ${address}`);
     }
 
+    if (deprecated) {
+      // `deprecateBushContract` reverts on an already deprecated contract, so a re-run skips it. Validation guarantees
+      // a deprecated entry has no alias, so there is nothing more to do for it.
+      if ((await registry.getBushContractInfo(address)).isActive) {
+        await registryAsSender.deprecateBushContract(address);
+        logger.success(`Deprecated: ${name} at ${address}`);
+      } else {
+        logger.info(`Already deprecated: ${name} at ${address}`);
+      }
+      continue;
+    }
+
     if (contractAlias === undefined) {
       continue;
     }
@@ -131,7 +146,18 @@ export default async (task: Task, { from }: TaskRunOptions = {}): Promise<void> 
   }
 };
 
-function validateRegistration({ contractType, name, poolFactory }: ContractRegistration): void {
+function validateRegistration({
+  contractType,
+  name,
+  poolFactory,
+  contractAlias,
+  deprecated,
+}: ContractRegistration): void {
+  // An alias is how integrators find the current version, so it should never resolve to a deprecated contract.
+  if (deprecated && contractAlias !== undefined) {
+    throw Error(`${name} is deprecated, so it cannot have an alias; move \`${contractAlias}\` to its replacement.`);
+  }
+
   if (contractType !== ContractType.POOL_FACTORY) {
     if (poolFactory !== undefined) {
       throw Error(`${name} has pool factory metadata, but is not registered as a pool factory.`);
