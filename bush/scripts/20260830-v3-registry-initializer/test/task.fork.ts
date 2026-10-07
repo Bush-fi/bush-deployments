@@ -133,6 +133,18 @@ describeForkTest('RegistryInitializer', 'robinhoodchain', 'latest', function () 
     }
   });
 
+  it('registers the reclamm factory without an external hook', async () => {
+    const [factory] = await registry.getPoolFactory('ReClammPool');
+    expect(factory).to.be.eq(
+      new Task('20261007-v3-reclamm-pool', TaskMode.READ_ONLY, 'robinhoodchain').output().ReClammPoolFactory
+    );
+
+    const info = await registry.getPoolFactoryInfo(factory);
+    expect(info.poolType).to.be.eq('RECLAMM');
+    expect(info.hookMode).to.be.eq(BigInt(HookMode.NONE));
+    expect(info.hook).to.be.eq(ZERO_ADDRESS);
+  });
+
   it('points the aliases at the right addresses', async () => {
     for (const { address, contractType, contractAlias } of input.Registrations) {
       if (contractAlias === undefined) continue;

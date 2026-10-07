@@ -131,6 +131,15 @@ const Registrations: ContractRegistration[] = [
     { poolType: 'STABLE', hookMode: HookMode.OPTIONAL },
     'StablePool'
   ),
+  // ReClamm pools are their own hook, so the factory takes no hook in `create` and there is no single hook address to
+  // record for `SPECIFIC`. `NONE` is the closest fit: there is no external hook to expect, and the pool type alone
+  // tells integrators to treat these as ReClamm pools.
+  registerPoolFactory(
+    '20261007-v3-reclamm-pool',
+    'ReClammPoolFactory',
+    { poolType: 'RECLAMM', hookMode: HookMode.NONE },
+    'ReClammPool'
+  ),
 ];
 
 export default {

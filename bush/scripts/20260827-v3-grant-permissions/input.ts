@@ -42,7 +42,7 @@ const WeightedPoolFactory = WeightedPoolTask.output().WeightedPoolFactory;
 const LiquidityZapper = LiquidityZapperTask.output().MultiRouterLiquidityZapper;
 
 // Root of the TimelockAuthorizer, and the fee recipient of the ProtocolFeeSweeper.
-const Admin = '0xAfb63FBd653A55f180a84076673f4abF9E68232c';
+const Admin = '0xEF39548241ABb0B8B072BD2C0ce25BB5A326009F';
 
 function grant(
   task: Task,

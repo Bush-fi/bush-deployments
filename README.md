@@ -78,13 +78,15 @@ Returns an object with all contracts from a deployment and their addresses.
 | V3 Stable Pool                               | [`20260803-v3-stable-pool`](./bush/tasks/20260803-v3-stable-pool)                                       |
 | Test Token                                   | [`20260803-v3-test-token`](./bush/tasks/20260803-v3-test-token)                                         |
 | V3 Token Pair Registry                       | [`20260803-v3-token-pair-registry`](./bush/tasks/20260803-v3-token-pair-registry)                       |
-| V3 Weighted Pool                             | [`20260803-v3-weighted-pool`](./bush/tasks/20260803-v3-weighted-pool)                                   |
 | V3 Aggregator Batch Router                   | [`20260815-v3-aggregator-batch-router`](./bush/tasks/20260815-v3-aggregator-batch-router)               |
 | V3 Aggregator Router                         | [`20260815-v3-aggregator-router`](./bush/tasks/20260815-v3-aggregator-router)                           |
 | V3 Protocol Fee Sweeper                      | [`20260827-v3-protocol-fee-sweeper-v2`](./bush/tasks/20260827-v3-protocol-fee-sweeper-v2)               |
 | Timelock Authorizer, governance contract     | [`20260827-v3-timelock-authorizer`](./bush/tasks/20260827-v3-timelock-authorizer)                       |
 | V3 Contract Registry                         | [`20260923-v3-contract-registry-v2`](./bush/tasks/20260923-v3-contract-registry-v2)                     |
 | V3 Multi-Router Liquidity Zapper             | [`20260928-v3-zapper-v2`](./bush/tasks/20260928-v3-zapper-v2)                                           |
+| V3 Weighted Pool                             | [`20261001-v3-weighted-pool`](./bush/tasks/20261001-v3-weighted-pool)                                   |
+| V3 ERC4626 Rate Provider Factory             | [`20261007-v3-erc4626-rate-provider-factory`](./bush/tasks/20261007-v3-erc4626-rate-provider-factory)   |
+| V3 ReClamm Pool                              | [`20261007-v3-reclamm-pool`](./bush/tasks/20261007-v3-reclamm-pool)                                     |
 
 ## Scripts
 
@@ -104,4 +106,5 @@ Go to each deprecated deployment's readme file to learn more about why it is dep
 | Description                                  | Task ID                                                                                                 |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | V3 Contract Registry                         | [`20260802-v3-contract-registry`](./bush/deprecated/20260802-v3-contract-registry)                      |
-| V3 Liquidity Zapper (Umbra)                  | [`20260917-v3-zapper`](./bush/tasks/20260917-v3-zapper)                                                 |
+| V3 Weighted Pool                             | [`20260803-v3-weighted-pool`](./bush/deprecated/20260803-v3-weighted-pool)                              |
+| V3 Liquidity Zapper (Umbra)                  | [`20260917-v3-zapper`](./bush/deprecated/20260917-v3-zapper)                                            |

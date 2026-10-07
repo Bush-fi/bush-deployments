@@ -256,7 +256,7 @@
         "address": "0x4E4810F0b43DDF1E083A05640951A7E2B737065d"
       }
     ],
-    "status": "ACTIVE",
+    "status": "DEPRECATED",
     "version": "bush"
   },
   "20261001-v3-weighted-pool": {
@@ -268,6 +268,44 @@
       {
         "name": "MockWeightedPool",
         "address": "0x6a075E873048a86ab03B106985c11C9ff5772ef2"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20261007-v3-erc4626-rate-provider-factory": {
+    "contracts": [
+      {
+        "name": "ERC4626RateProviderFactory",
+        "address": "0x392fFA8bD30f3E919ec1A4E37Ebf06F0f7B4c1c3"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20261007-v3-reclamm-pool": {
+    "contracts": [
+      {
+        "name": "ReClammPoolHelper",
+        "address": "0xc8c83Ecd125e8f1a46696Fd5fd93132e81bD9370"
+      },
+      {
+        "name": "ReClammPoolFactory",
+        "address": "0xeaDAB24A503BC4D20BF05ff77639f57CB5481E6E"
+      },
+      {
+        "name": "MockReClammPool",
+        "address": "0x5f2f3ef4124Ad9247CE47fBb8d9239159C694a84"
+      }
+    ],
+    "status": "ACTIVE",
+    "version": "bush"
+  },
+  "20261007-v3-zapper-v3": {
+    "contracts": [
+      {
+        "name": "MultiRouterLiquidityZapper",
+        "address": "0xfAfFa1128FCd9b0605c25901851eAA4bf04f075b"
       }
     ],
     "status": "ACTIVE",

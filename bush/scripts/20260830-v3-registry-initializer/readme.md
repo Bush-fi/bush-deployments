@@ -41,6 +41,10 @@ partway through leaves the registry half-populated; re-running finishes the job.
 The `20260803-v3-weighted-pool` factory is deprecated in favour of `20261001-v3-weighted-pool`, which now holds the
 `WeightedPool` alias.
 
+The [`20261007-v3-reclamm-pool`](../../tasks/20261007-v3-reclamm-pool) factory is registered as a `RECLAMM` factory
+under the `ReClammPool` alias. Each ReClamm pool is its own hook, so the factory takes no hook in `create` and there is
+no single hook address to record for `SPECIFIC`; it is registered with hook mode `NONE`, meaning no external hook.
+
 The `BufferRouter` is registered with no alias, matching upstream - it is driven by the Vault's buffer machinery
 rather than looked up by name.
 
