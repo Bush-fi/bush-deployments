@@ -24,7 +24,7 @@ const Vault = new Task('20260730-v3-vault3', TaskMode.READ_ONLY, network);
 const ProtocolFeeController = new Task('20260730-v3-protocol-fee-controller', TaskMode.READ_ONLY, network);
 const BushContractRegistry = new Task('20260923-v3-contract-registry-v2', TaskMode.READ_ONLY, network);
 const ProtocolFeeSweeper = new Task('20260827-v3-protocol-fee-sweeper-v2', TaskMode.READ_ONLY, network);
-const LiquidityZapper = new Task('20260928-v3-zapper-v2', TaskMode.READ_ONLY, network);
+const LiquidityZapper = new Task('20261007-v3-zapper-v3', TaskMode.READ_ONLY, network);
 
 // Happens frequently.
 const SHORT_DELAY = 0.5 * HOUR;

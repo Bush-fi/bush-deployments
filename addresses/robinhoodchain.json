@@ -20,7 +20,7 @@
         "address": "0x49a74571c34c456A1c55e2374e55DEaBc1B1B969"
       }
     ],
-    "status": "ACTIVE",
+    "status": "DEPRECATED",
     "version": "bush"
   },
   "20260730-v3-protocol-fee-controller": {

@@ -17,7 +17,7 @@ describeForkTest('GrantPermissions', 'robinhoodchain', 'latest', function () {
   let task: Task, authorizerTask: Task;
   let input: GrantPermissionsDeployment;
   let authorizer: Contract, vaultAsAdmin: Contract, vaultAsExtension: Contract;
-  let root: SignerWithAddress;
+  let root: SignerWithAddress, admin: SignerWithAddress;
 
   before('deploy the authorizer and hand the vault over to it', async () => {
     authorizerTask = new Task(AUTHORIZER_TASK_NAME, TaskMode.TEST, getForkedNetwork(hre));
@@ -32,7 +32,13 @@ describeForkTest('GrantPermissions', 'robinhoodchain', 'latest', function () {
     vaultAsAdmin = (await vaultTask.deployedInstance('VaultAdmin')).attach(vault.target.toString()) as Contract;
     vaultAsExtension = (await vaultTask.deployedInstance('VaultExtension')).attach(vault.target.toString()) as Contract;
 
-    await (vaultAsAdmin.connect(root) as Contract).setAuthorizer(authorizer.target.toString());
+    // The live Vault already uses the live TimelockAuthorizer, on which only the admin Safe holds `setAuthorizer`.
+    const liveAdmin = (
+      new Task(TASK_NAME, TaskMode.READ_ONLY, getForkedNetwork(hre)).input() as GrantPermissionsDeployment
+    ).Permissions[0].account;
+    await (vaultAsAdmin.connect(await impersonate(liveAdmin, fp(100))) as Contract).setAuthorizer(
+      authorizer.target.toString()
+    );
     expect(await vaultAsExtension.getAuthorizer()).to.be.eq(authorizer.target.toString());
   });
 
@@ -46,6 +52,9 @@ describeForkTest('GrantPermissions', 'robinhoodchain', 'latest', function () {
     }
 
     await task.run({ force: true, from: root });
+
+    // Root sends the grants, but the permissions go to the admin Safe, so the functional checks act as the Safe.
+    admin = await impersonate(input.Permissions[0].account, fp(100));
   });
 
   // The functional checks come first: they exercise the three different `where` values the permissions use, which is
@@ -54,10 +63,10 @@ describeForkTest('GrantPermissions', 'robinhoodchain', 'latest', function () {
 
   it('grants vault-wide actions on the Vault itself', async () => {
     // `isVaultPaused` is a VaultAdmin function, so it is read through the Vault like the setters.
-    await (vaultAsAdmin.connect(root) as Contract).pauseVault();
+    await (vaultAsAdmin.connect(admin) as Contract).pauseVault();
     expect(await vaultAsAdmin.isVaultPaused()).to.be.true;
 
-    await (vaultAsAdmin.connect(root) as Contract).unpauseVault();
+    await (vaultAsAdmin.connect(admin) as Contract).unpauseVault();
     expect(await vaultAsAdmin.isVaultPaused()).to.be.false;
   });
 
@@ -67,7 +76,7 @@ describeForkTest('GrantPermissions', 'robinhoodchain', 'latest', function () {
     const pool = poolTask.output().MockStablePool;
 
     const newSwapFeePercentage = fp(0.02);
-    await (vaultAsAdmin.connect(root) as Contract).setStaticSwapFeePercentage(pool, newSwapFeePercentage);
+    await (vaultAsAdmin.connect(admin) as Contract).setStaticSwapFeePercentage(pool, newSwapFeePercentage);
 
     expect(await vaultAsExtension.getStaticSwapFeePercentage(pool)).to.be.eq(newSwapFeePercentage);
   });
@@ -81,7 +90,7 @@ describeForkTest('GrantPermissions', 'robinhoodchain', 'latest', function () {
     const feeController = await feeControllerTask.deployedInstance('ProtocolFeeController');
 
     const newFeePercentage = fp(0.1);
-    await (feeController.connect(root) as Contract).setGlobalProtocolSwapFeePercentage(newFeePercentage);
+    await (feeController.connect(admin) as Contract).setGlobalProtocolSwapFeePercentage(newFeePercentage);
 
     expect(await feeController.getGlobalProtocolSwapFeePercentage()).to.be.eq(newFeePercentage);
   });

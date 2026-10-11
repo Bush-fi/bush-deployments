@@ -6,7 +6,7 @@ This is a script rather than a deployment: it deploys nothing and saves no outpu
 
 ## Permissions
 
-42 grants, all to the admin except where noted. The `where` of a permission is the contract that *checks* it, which is not always the contract the function is declared on.
+49 grants, all to the admin Safe (`0xEF39548241ABb0B8B072BD2C0ce25BB5A326009F`) except where noted. The `where` of a permission is the contract that _checks_ it, which is not always the contract the function is declared on.
 
 ### Vault — granted on the Vault (`VaultAdmin` runs by delegate call, so `address(this)` is the Vault)
 
@@ -28,7 +28,9 @@ These check `where == pool` (deferring to governance when the pool has no pause 
 
 `sweepProtocolFeesForToken(...)`, `sweepProtocolFeesForWrappedToken(...)`, `setFeeRecipient(address)`, `setTargetToken(address)`, `addProtocolFeeBurner(address)`, `removeProtocolFeeBurner(address)`
 
-The admin is already the sweeper's `feeRecipient`, and `onlyFeeRecipientOrGovernance` short-circuits for it, so these are redundant today. They are granted anyway so the admin keeps control if the fee recipient is ever changed.
+These are `onlyFeeRecipientOrGovernance`: the sweeper's `feeRecipient`, the separate 2-of-3 Safe `0x572ffb4AA774aB785E2eC79CEC4071BB3037575a`, can always call them regardless of the Authorizer. These grants let the admin Safe do so too.
+
+The two sweep functions are additionally granted to the **admin EOA** `0xAfb63FBd653A55f180a84076673f4abF9E68232c`, so routine sweeps don't need a Safe transaction. It gets no sweeper configuration permissions.
 
 ### BushContractRegistry — granted on the registry
 
@@ -46,11 +48,17 @@ These are granted on the [V2 registry](../../tasks/20260923-v3-contract-registry
 
 ### Pool factories — granted on each factory
 
-`StablePoolFactory.disable()`, `WeightedPoolFactory.disable()`. Pool creation is permissionless, so `disable()` is the only gated function.
+`StablePoolFactory.disable()`, `WeightedPoolFactory.disable()` (on the [current factory](../../tasks/20261001-v3-weighted-pool), not the deprecated one), `ReClammPoolFactory.disable()`. Pool creation is permissionless, so `disable()` is the only gated function.
+
+### Pool parameters — granted on `EVERYWHERE`
+
+`StablePool.startAmplificationParameterUpdate(uint256,uint256)`, `StablePool.stopAmplificationParameterUpdate()`, `ReClammPool.setCenterednessMargin(uint256)`, `ReClammPool.setDailyPriceShiftExponent(uint256)`, `ReClammPool.startPriceRatioUpdate(uint256,uint256,uint256)`, `ReClammPool.stopPriceRatioUpdate()`
+
+These check `onlySwapFeeManagerOrGovernance(address(this))` on the pool, deferring to governance only when the pool has no swap fee manager. Action IDs are disambiguated by the factory, so one global grant covers every pool from that factory.
 
 ### Deliberately not granted
 
-Functions that are not gated by the Authorizer at all: the Vault's buffer entry points (`initializeBuffer`, `addLiquidityToBuffer`, `removeLiquidityFromBuffer`) are permissionless, `collectAggregateFees` and `updateAggregate*FeePercentage` are restricted to the fee controller, `TokenPairRegistry`'s ownership functions are `Ownable2Step`, the factories' `create` is permissionless, and so is the zapper's `zap`.
+Functions that are not gated by the Authorizer at all: the Vault's buffer entry points (`initializeBuffer`, `addLiquidityToBuffer`, `removeLiquidityFromBuffer`) are permissionless, `collectAggregateFees` and `updateAggregate*FeePercentage` are restricted to the fee controller, `TokenPairRegistry`'s ownership functions are `Ownable2Step`, the factories' `create` is permissionless, and so is the zapper's `zap`. The `ERC4626RateProviderFactory` and `ReClammPoolHelper` do not use the Authorizer at all.
 
 ## Requirements
 

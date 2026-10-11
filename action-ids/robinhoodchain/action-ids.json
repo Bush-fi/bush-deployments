@@ -246,5 +246,55 @@
         "zap((address,(address,bytes,uint256,uint256,address)[],address,(address,string,string,(address,uint8,address,bool)[],uint256[],(address,address,address),uint256,address,bool,bool,bytes32),uint256,address,uint256))": "0x28a8e1b8094e11e0192f8f51d74f9ba12f551eaac3bdc8866c3e3ea8a0a1f1f9"
       }
     }
+  },
+  "20261001-v3-weighted-pool": {
+    "WeightedPoolFactory": {
+      "useAdaptor": false,
+      "actionIds": {
+        "create(string,string,(address,uint8,address,bool)[],uint256[],(address,address,address),uint256,address,bool,bool,bytes32)": "0x74677e0aa7faf5823926cfe7ddea7c38fc549d2c1b7d19c86e09a232fa1506ff",
+        "disable()": "0x5da4b8114cf5b3dce16b86ef76ca16c7703ac9ef98534eb5ee27f57225b1a785"
+      }
+    }
+  },
+  "20261007-v3-reclamm-pool": {
+    "ReClammPoolFactory": {
+      "useAdaptor": false,
+      "actionIds": {
+        "create(string,string,(address,uint8,address,bool)[],(address,address,address),uint256,(uint256,uint256,uint256,bool,bool),uint256,uint256,bytes32)": "0xac2078595fa97845eca5704c0dffde557b2bd9fd013e35db9fd558fb5d47675b",
+        "disable()": "0xaa5864855ad010d35e79f480d74a23d4cabebec4f540d77e19c0712fa59e4123"
+      }
+    },
+    "ReClammPool": {
+      "useAdaptor": false,
+      "factoryOutput": "0x5f2f3ef4124Ad9247CE47fBb8d9239159C694a84",
+      "actionIds": {
+        "emitApproval(address,address,uint256)": "0x09e5d4ef048078ec3ecd34054be167df7deee2925f91889f477f097e9d75b2c5",
+        "emitTransfer(address,address,uint256)": "0xc261fba3040db61e5c5c66b0477caebda67eefeccaa12fa2c356f9732c61e10b",
+        "incrementNonce()": "0xe6146d2508ba52bbf291f9ee88501cddd17a4d954a80bdb21529d9f73440c6ad",
+        "onAfterAddLiquidity(address,address,uint8,uint256[],uint256[],uint256,uint256[],bytes)": "0x58ed8956585dcec7df2d05bc824e7e7b5cd5d1ba85b189d2fb43b474a6104bf9",
+        "onAfterInitialize(uint256[],uint256,bytes)": "0x544cf164ce76d2ef58a65e283025aea9e14151f18625976ca9bb8a9494ff7db4",
+        "onAfterRemoveLiquidity(address,address,uint8,uint256,uint256[],uint256[],uint256[],bytes)": "0x18adf7dc91c15f6cd1ec18d8dcbb53b3b4009572864211c934ab5b41ac278002",
+        "onAfterSwap((uint8,address,address,uint256,uint256,uint256,uint256,uint256,uint256,address,address,bytes))": "0x35ca8d525403ae227f311e39328b80de9a4db537fee03e662f6fcc092bb45738",
+        "onBeforeAddLiquidity(address,address,uint8,uint256[],uint256,uint256[],bytes)": "0x1aea1e0811e42d84297bea1c954aa5072ac86575450b13c331281f758a2bd3fe",
+        "onBeforeInitialize(uint256[],bytes)": "0xec1bba7f086b7bd4e271718a05943d12a6f0b5a9c74313dee27e268969931ff4",
+        "onBeforeRemoveLiquidity(address,address,uint8,uint256,uint256[],uint256[],bytes)": "0x39be9637a4234eabf0ef5d9a19d3096157a3e6762f52ece8496d861fc8f85851",
+        "onBeforeSwap((uint8,uint256,uint256[],uint256,uint256,address,bytes),address)": "0x24a79a47c08f9be110b9cf10c6d824ad5164dff011915946f75c490b8662c3ed",
+        "onSwap((uint8,uint256,uint256[],uint256,uint256,address,bytes))": "0x201c5bcff96d8ed72ff9c944c24498e8e10e5a1ebaf7cd90ea347791829bc97d",
+        "setCenterednessMargin(uint256)": "0x2511aebb6f6d40319665f2da904cfaa5b808a2b39a04528d64a96679c9e239a5",
+        "setDailyPriceShiftExponent(uint256)": "0x0c4080dd51404128e47bd8efa73cc33aeb8009e9f8c4c61413b05eb05dfdd913",
+        "startPriceRatioUpdate(uint256,uint256,uint256)": "0xc49f9cf221b610a06c6920ee477a0481f328329eb97bed494ccddd508558c11b",
+        "stopPriceRatioUpdate()": "0x5a737ef079d8d3acca27c7aee872f0a9e70571c0eea52d6e93b59e67e0a59e7c"
+      }
+    }
+  },
+  "20261007-v3-zapper-v3": {
+    "MultiRouterLiquidityZapper": {
+      "useAdaptor": false,
+      "actionIds": {
+        "rescue(address,address,uint256)": "0x99c581a54639af6aecd18087244fad305bb5c6c267dad53a688257f7782c58c6",
+        "setSwapRouterAllowed(address,bool)": "0xba88ce62dd47846428b4e80fd247e454115afeadafda05a934265de310250a6e",
+        "zap((address,(address,bytes,uint256,uint256,address)[],address,(address,string,string,(address,uint8,address,bool)[],uint256[],(address,address,address),uint256,address,bool,bool,bytes32),uint256,address,uint256))": "0x3c19cd7871768301b861a808bb85d7fe18b43f601e5f50e53fbd1e3729be0646"
+      }
+    }
   }
 }

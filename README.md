@@ -83,19 +83,21 @@ Returns an object with all contracts from a deployment and their addresses.
 | V3 Protocol Fee Sweeper                      | [`20260827-v3-protocol-fee-sweeper-v2`](./bush/tasks/20260827-v3-protocol-fee-sweeper-v2)               |
 | Timelock Authorizer, governance contract     | [`20260827-v3-timelock-authorizer`](./bush/tasks/20260827-v3-timelock-authorizer)                       |
 | V3 Contract Registry                         | [`20260923-v3-contract-registry-v2`](./bush/tasks/20260923-v3-contract-registry-v2)                     |
-| V3 Multi-Router Liquidity Zapper             | [`20260928-v3-zapper-v2`](./bush/tasks/20260928-v3-zapper-v2)                                           |
 | V3 Weighted Pool                             | [`20261001-v3-weighted-pool`](./bush/tasks/20261001-v3-weighted-pool)                                   |
 | V3 ERC4626 Rate Provider Factory             | [`20261007-v3-erc4626-rate-provider-factory`](./bush/tasks/20261007-v3-erc4626-rate-provider-factory)   |
 | V3 ReClamm Pool                              | [`20261007-v3-reclamm-pool`](./bush/tasks/20261007-v3-reclamm-pool)                                     |
+| V3 Multi-Router Liquidity Zapper             | [`20261007-v3-zapper-v3`](./bush/tasks/20261007-v3-zapper-v3)                                           |
 
 ## Scripts
 
 These are deployments for script-like contracts (often called 'coordinators') which are typically granted some permission by Governance and then executed, after which they become useless.
 
-| Description                                   | Task ID                                                                               |
-| --------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Grant initial Timelock Authorizer permissions | [`20260827-v3-grant-permissions`](./bush/scripts/20260827-v3-grant-permissions)       |
-| Contract Registry Initializer                 | [`20260830-v3-registry-initializer`](./bush/scripts/20260830-v3-registry-initializer) |
+| Description                                         | Task ID                                                                               |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Grant initial Timelock Authorizer permissions       | [`20260827-v3-grant-permissions`](./bush/scripts/20260827-v3-grant-permissions)       |
+| Contract Registry Initializer                       | [`20260830-v3-registry-initializer`](./bush/scripts/20260830-v3-registry-initializer) |
+| Transfer Timelock Authorizer root to the admin Safe | [`20261001-v3-root-change`](./bush/scripts/20261001-v3-root-change)                   |
+| Point the Vault at the Timelock Authorizer          | [`20261011-v3-set-authorizer`](./bush/scripts/20261011-v3-set-authorizer)             |
 
 ## Deprecated Deployments
 
@@ -103,8 +105,9 @@ These deployments have been deprecated because they're either outdated and have 
 
 Go to each deprecated deployment's readme file to learn more about why it is deprecated, and what the replacement deployment is (if any).
 
-| Description                                  | Task ID                                                                                                 |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| V3 Contract Registry                         | [`20260802-v3-contract-registry`](./bush/deprecated/20260802-v3-contract-registry)                      |
-| V3 Weighted Pool                             | [`20260803-v3-weighted-pool`](./bush/deprecated/20260803-v3-weighted-pool)                              |
-| V3 Liquidity Zapper (Umbra)                  | [`20260917-v3-zapper`](./bush/deprecated/20260917-v3-zapper)                                            |
+| Description                      | Task ID                                                                            |
+| -------------------------------- | ---------------------------------------------------------------------------------- |
+| V3 Contract Registry             | [`20260802-v3-contract-registry`](./bush/deprecated/20260802-v3-contract-registry) |
+| V3 Weighted Pool                 | [`20260803-v3-weighted-pool`](./bush/deprecated/20260803-v3-weighted-pool)         |
+| V3 Liquidity Zapper (Umbra)      | [`20260917-v3-zapper`](./bush/deprecated/20260917-v3-zapper)                       |
+| V3 Multi-Router Liquidity Zapper | [`20260928-v3-zapper-v2`](./bush/deprecated/20260928-v3-zapper-v2)                 |

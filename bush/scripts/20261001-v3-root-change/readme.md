@@ -1,6 +1,6 @@
 # 2026-10-01 - V3 Root Change
 
-Transfers root of the [`TimelockAuthorizer`](../../tasks/20260827-v3-timelock-authorizer) from the admin EOA `0xAfb63FBd653A55f180a84076673f4abF9E68232c` to the Safe `0xEF39548241ABb0B8B072BD2C0ce25BB5A326009F` (1-of-1, owned by that same EOA).
+Transfers root of the [`TimelockAuthorizer`](../../tasks/20260827-v3-timelock-authorizer) from the admin EOA `0xAfb63FBd653A55f180a84076673f4abF9E68232c` to the Safe `0xEF39548241ABb0B8B072BD2C0ce25BB5A326009F` (1-of-3: owned by that same EOA, `0xE680025Aa804ab5696CF3F0b449f15dA93d1F922` and `0x6663838056e5858840eBD46Fb04a3e0ca5a80313`, any one of which can act alone).
 
 This is a script rather than a deployment: it deploys nothing and saves no output, it just sends transactions.
 
@@ -26,6 +26,6 @@ The new root is a Safe, so step 3 can't be sent by this script: call `claimRoot(
 
 ## Things to keep in mind
 
-- Permissions are not transferred with root. Everything granted by [`20260827-v3-grant-permissions`](../20260827-v3-grant-permissions) stays with the admin EOA; root can grant any of them to the Safe as well.
+- Permissions are not transferred with root, and are independent of it. [`20260827-v3-grant-permissions`](../20260827-v3-grant-permissions) grants everything to the Safe directly, so the admin EOA holds no permissions of its own either before or after this change; it only acts as root (granter, revoker, canceler) until the Safe claims.
 - Root is a granter and revoker for every action, so after the claim the Safe is the only account that can grant permissions (or schedule delay changes) unless it adds other granters.
 - `NextRoot` in the Authorizer's deployment inputs is only read by the constructor; it is not updated by this change.
