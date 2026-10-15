@@ -308,6 +308,16 @@
         "address": "0xfAfFa1128FCd9b0605c25901851eAA4bf04f075b"
       }
     ],
+    "status": "DEPRECATED",
+    "version": "bush"
+  },
+  "20261014-v3-zapper-v4": {
+    "contracts": [
+      {
+        "name": "MultiRouterLiquidityZapper",
+        "address": "0xe696c05F5965A45A807052d9A3aDBCAB916F951F"
+      }
+    ],
     "status": "ACTIVE",
     "version": "bush"
   }
